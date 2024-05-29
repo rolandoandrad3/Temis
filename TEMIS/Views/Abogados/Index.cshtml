@@ -1,0 +1,85 @@
+﻿@model PagedList.IPagedList<TEMIS.Models.Abogados>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Abogados</h2>
+
+<p>
+    @Html.ActionLink("Agregar nuevo Abogado", "Create")
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</p>
+@using (Html.BeginForm())
+{
+    <p> Buscar por nombre, apellido DUI: @Html.TextBox("cadenaBuscar", ViewBag.FiltroActual as string)</p>
+    <input type="submit" value="Buscar" class="btn btn-outline-primary" />
+}
+
+<table class="table table-responsive-md">
+    <tr>
+        <th>
+            Nombre del Abogado
+        </th>
+        <th>
+            @Html.ActionLink("ApellidosAbogado", "Index", new { sortOrder = ViewBag.ApellidoSortParam, FiltroActual = ViewBag.FiltroActual })
+        </th>
+        <th>
+            @Html.ActionLink("DUIAbogado", "Index", new { sortOrder = ViewBag.DUISortParam, FiltroActual = ViewBag.FiltroActual })
+        </th>
+        <th>
+            Especialidad del Abogado
+        </th>
+        <th>
+            TelefonoAbogado
+        </th>
+        <th>
+            Email del Abogado
+        </th>
+        <th>
+            Código de Corte Suprema de Justicia
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreAbogado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApellidosAbogado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DUIAbogado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EspecialidadAbogado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TelefonoAbogado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailAbogado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CSJ)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID_Abogados }, htmlAttributes: new { @class = "btn btn-outline-info bi bi-pencil-fill" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID_Abogados }, htmlAttributes: new { @class = "btn btn-outline-warning" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID_Abogados }, htmlAttributes: new { @class = "btn btn-outline-danger" })
+            </td>
+        </tr>
+    }
+
+</table>
+<!--Agregar para paginacion-->
+<br />
+Pagina @(Model.PageCount < Model.PageNumber ? 0: Model.PageNumber) de @Model.PageCount
+<!--agregamos botones de indexamiento-->
+@Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina, sortOrder = ViewBag.OrdenamientoActual, FiltroActual = ViewBag.FiltroActual }))

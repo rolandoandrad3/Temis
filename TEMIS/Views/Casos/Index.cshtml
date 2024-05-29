@@ -1,0 +1,47 @@
+﻿@model IEnumerable<TEMIS.Models.Casos>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Casos</h2>
+
+<p>
+    @Html.ActionLink("Agregar nuevo Caso", "Create")
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</p>
+<table class="table table-responsive-md">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Caso_Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tipo_Facturacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PrecioCaso)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Caso_Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tipo_Facturacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PrecioCaso)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID_Case }, htmlAttributes: new { @class = "btn btn-outline-info bi bi-pencil-fill" }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID_Case }, htmlAttributes: new { @class = "btn btn-outline-warning" }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID_Case }, htmlAttributes: new { @class = "btn btn-outline-danger" })
+        </td>
+    </tr>
+}
+
+</table>

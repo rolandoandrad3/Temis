@@ -1,0 +1,103 @@
+﻿@model PagedList.IPagedList<TEMIS.Models.Clientes>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Clientes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Clientes</h2>
+
+<p>
+    @Html.ActionLink("Agregar nuevo Cliente", "Create")
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</p>
+@using (Html.BeginForm())
+{
+    <p> Buscar por nombre, apellido o DUI: @Html.TextBox("cadenaBuscar", ViewBag.FiltroActual as string)</p>
+    <input type="submit" value="Buscar" class="btn btn-outline-primary" />
+}
+<table class="table table-responsive-md">
+    <tr>
+        <th>
+            Primer Nombre
+        </th>
+        <th>
+            Segundo Nombre
+        </th>
+        <th>
+            @Html.ActionLink("PrimAprellido", "Index", new { sortOrder = ViewBag.ApellidoSortParam, FiltroActual = ViewBag.FiltroActual })
+        </th>
+        <th>
+            Segundo Apellido
+        </th>
+        <th>
+            @Html.ActionLink("DUI", "Index", new { sortOrder = ViewBag.DUISortParam, FiltroActual = ViewBag.FiltroActual })
+        </th>
+        <th>
+            Edad
+        </th>
+        <th>
+            Nacionalidad
+        </th>
+        <th>
+            Ocupacion
+        </th>
+        <th>
+            Direccion
+        </th>
+        <th>
+            Telefono
+        </th>
+        <th>
+            Email
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrimNombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SegNombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrimAprellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SegAprellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DUI)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client_Edad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nacionalidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ocupacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Direccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefonoo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID_Cliente }, htmlAttributes: new { @class = "btn btn-outline-info bi bi-pencil-fill" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID_Cliente }, htmlAttributes: new { @class = "btn btn-outline-warning" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID_Cliente }, htmlAttributes: new { @class = "btn btn-outline-danger" })
+            </td>
+        </tr>
+    }
+
+</table>

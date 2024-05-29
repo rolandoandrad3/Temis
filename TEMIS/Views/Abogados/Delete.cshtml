@@ -1,0 +1,84 @@
+﻿@model TEMIS.Models.Abogados
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Borrar</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<h3>¿Está seguro que desea borrar este registro?</h3>
+
+<div>
+    <h4>Abogados</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreAbogado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreAbogado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApellidosAbogado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApellidosAbogado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DUIAbogado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DUIAbogado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EspecialidadAbogado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EspecialidadAbogado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TelefonoAbogado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TelefonoAbogado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailAbogado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailAbogado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CSJ)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CSJ)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-outline-danger" /> |
+            @Html.ActionLink("Regresar al Listado", "Index")
+        </div>
+    }
+</div>

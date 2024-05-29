@@ -1,0 +1,75 @@
+﻿@model TEMIS.Models.Abogados
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Abogados</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreAbogado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreAbogado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApellidosAbogado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApellidosAbogado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DUIAbogado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DUIAbogado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EspecialidadAbogado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EspecialidadAbogado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TelefonoAbogado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TelefonoAbogado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailAbogado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailAbogado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CSJ)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CSJ)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Modificar", "Edit", new { id = Model.ID_Abogados }) |
+    @Html.ActionLink("Regresar a la Lista", "Index")
+</p>
