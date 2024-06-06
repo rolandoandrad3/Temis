@@ -26,7 +26,8 @@ namespace TEMIS.Models
 
         [Display(Name = "Precio del caso")]
         [Required(ErrorMessage = "Precio del caso es obligatorio")]
-        [StringLength(10, MinimumLength = 2, ErrorMessage = "El Precio del caso debe ser ingresado en numeros")]
+        [RegularExpression(@"^\d+(\.\d{1,2})?$", ErrorMessage = "El Precio del caso debe ser un número válido con hasta dos decimales.")]
+        [Range(0.01, 99999.99, ErrorMessage = "El Precio del caso debe estar entre 0.01 y 99999.99.")]
         public string PrecioCaso { get; set; }
     }
 }
