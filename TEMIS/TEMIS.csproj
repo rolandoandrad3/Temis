@@ -152,6 +152,10 @@
     <Compile Include="Migrations\202405200332304_UpdateDatabaseSchema3.Designer.cs">
       <DependentUpon>202405200332304_UpdateDatabaseSchema3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202406070012204_NombreDeTuMigracion.cs" />
+    <Compile Include="Migrations\202406070012204_NombreDeTuMigracion.Designer.cs">
+      <DependentUpon>202406070012204_NombreDeTuMigracion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Abogados.cs" />
     <Compile Include="Models\Casos.cs" />
@@ -271,6 +275,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202405200332304_UpdateDatabaseSchema3.resx">
       <DependentUpon>202405200332304_UpdateDatabaseSchema3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202406070012204_NombreDeTuMigracion.resx">
+      <DependentUpon>202406070012204_NombreDeTuMigracion.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

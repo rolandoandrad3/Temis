@@ -98,11 +98,11 @@
                 <a href="@Url.Action("Edit", new { id = item.ID_Cliente })" class="btn btn-info" title="Edit">
                     <i class="bi bi-pencil-fill"></i>
                 </a>
-                
+
                 <a href="@Url.Action("Details", new { id = item.ID_Cliente })" class="btn btn-warning" title="Details">
                     <i class="bi bi-eye-fill"></i>
                 </a>
-                
+
                 <a href="@Url.Action("Delete", new { id = item.ID_Cliente })" class="btn btn-danger" title="Delete">
                     <i class="bi bi-trash-fill"></i>
                 </a>
@@ -112,3 +112,7 @@
     }
 
 </table>
+<br />
+Pagina @(Model.PageCount < Model.PageNumber ? 0: Model.PageNumber) de @Model.PageCount
+<!--agregamos botones de indexamiento-->
+@Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina, sortOrder = ViewBag.OrdenamientoActual, FiltroActual = ViewBag.FiltroActual }))

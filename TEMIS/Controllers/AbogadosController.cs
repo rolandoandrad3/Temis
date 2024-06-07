@@ -29,16 +29,16 @@ namespace TEMIS.Controllers
             // parámetro de ordenamiento en el campo "DUI"
             // y lo enviamos a la vista
             ViewBag.DUISortParam = sortOrder == "dui_asc" ? "dui_desc" : "dui_asc";
-            // variable para el listado de todos los doctores
+            // variable para el listado de todos los abogados
             // usando LINQ
-            var doctores = from s in db.Abogados select s;
+            var abogados = from s in db.Abogados select s;
 
 
             //Definir la busqueda
             if (!string.IsNullOrEmpty(cadenaBuscar))
             {
-                //asignar al listado doctores el resultado de la consulta
-                doctores = doctores.Where(s => s.NombreAbogado.Contains(cadenaBuscar) || s.ApellidosAbogado.Contains(cadenaBuscar) || s.EspecialidadAbogado.Contains(cadenaBuscar));
+                //asignar al listado abogados el resultado de la consulta
+                abogados = abogados.Where(s => s.NombreAbogado.Contains(cadenaBuscar) || s.ApellidosAbogado.Contains(cadenaBuscar) || s.EspecialidadAbogado.Contains(cadenaBuscar));
             }
 
             //definir la paginacion
@@ -60,31 +60,31 @@ namespace TEMIS.Controllers
             {
                 // ordenamiento descendente por "Apellidos"
                 case "apellido_desc":
-                    doctores = doctores.OrderByDescending(s => s.ApellidosAbogado);
+                    abogados = abogados.OrderByDescending(s => s.ApellidosAbogado);
                     break;
 
                 // ordenamiento descendente por "DUI"
                 case "dui_desc":
-                    doctores = doctores.OrderByDescending(s => s.DUIAbogado);
+                    abogados = abogados.OrderByDescending(s => s.DUIAbogado);
                     break;
 
                 // ordenamiento ascendente por "DUI"
                 case "dui_asc":
-                    doctores = doctores.OrderBy(s => s.DUIAbogado);
+                    abogados = abogados.OrderBy(s => s.DUIAbogado);
                     break;
 
                 // ordenamiento ascendente por "Apellidos"
                 default:
-                    doctores = doctores.OrderBy(s => s.ApellidosAbogado);
+                    abogados = abogados.OrderBy(s => s.ApellidosAbogado);
                     break;
             }
             //definir el tamaño de la pagina y la cantidad de paginas
-            int PageSize = 10;
+            int PageSize = 5;
             int PageNumber = (pagina ?? 1);
 
-            //return View(db.Doctors.ToList());
-            //return View(doctores.ToList()); Ya no se puede usar este return
-            return View(doctores.ToPagedList(PageNumber, PageSize));
+            //return View(db.Abogados.ToList());
+            //return View(abogados.ToList()); Ya no se puede usar este return
+            return View(abogados.ToPagedList(PageNumber, PageSize));
         }
 
         // GET: Abogados/Details/5
