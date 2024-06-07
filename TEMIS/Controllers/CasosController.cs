@@ -116,9 +116,12 @@ namespace TEMIS.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Casos.Add(casos);
+                try {db.Casos.Add(casos);
                 db.SaveChanges();
                 return RedirectToAction("Index");
+                }
+                catch (Exception ex) { ModelState.AddModelError("", "No se pudo guardar los cambios." + ex.Message); }
+                
             }
 
             return View(casos);
