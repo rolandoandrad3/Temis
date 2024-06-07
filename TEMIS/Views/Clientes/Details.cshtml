@@ -101,7 +101,7 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_Cliente }) |
-    @Html.ActionLink("Back to List", "Index")
+<p class="text-md-center mt-3">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_Cliente }, new { @class = "btn btn-warning" }) |
+    <button type="button" class="btn btn-light">@Html.ActionLink("Back to List", "Index")</button>
 </p>
