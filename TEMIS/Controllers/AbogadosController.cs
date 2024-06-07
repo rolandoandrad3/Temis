@@ -79,7 +79,7 @@ namespace TEMIS.Controllers
                     break;
             }
             //definir el tamaño de la pagina y la cantidad de paginas
-            int PageSize = 3;
+            int PageSize = 10;
             int PageNumber = (pagina ?? 1);
 
             //return View(db.Doctors.ToList());

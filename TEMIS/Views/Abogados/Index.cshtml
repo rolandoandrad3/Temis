@@ -1,6 +1,9 @@
 ﻿@model PagedList.IPagedList<TEMIS.Models.Abogados>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+
 
 @{
     ViewBag.Title = "Index";
@@ -70,9 +73,17 @@
                 @Html.DisplayFor(modelItem => item.CSJ)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID_Abogados }, htmlAttributes: new { @class = "btn btn-outline-info bi bi-pencil-fill" }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID_Abogados }, htmlAttributes: new { @class = "btn btn-outline-warning" }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID_Abogados }, htmlAttributes: new { @class = "btn btn-outline-danger" })
+                <a href="@Url.Action("Edit", new { id = item.ID_Abogados })" class="btn btn-info" title="Edit">
+                    <i class="bi bi-pencil-fill"></i>
+                </a>
+                
+                <a href="@Url.Action("Details", new { id = item.ID_Abogados })" class="btn btn-warning" title="Details">
+                    <i class="bi bi-eye-fill"></i>
+                </a>
+                
+                <a href="@Url.Action("Delete", new { id = item.ID_Abogados })" class="btn btn-danger" title="Delete">
+                    <i class="bi bi-trash-fill"></i>
+                </a>
             </td>
         </tr>
     }

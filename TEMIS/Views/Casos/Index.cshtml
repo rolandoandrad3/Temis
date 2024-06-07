@@ -10,6 +10,7 @@
 <p>
     @Html.ActionLink("Agregar nuevo Caso", "Create")
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </p>
 <table class="table table-responsive-md">
     <tr>
@@ -37,9 +38,17 @@
             @Html.DisplayFor(modelItem => item.PrecioCaso)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID_Case }, htmlAttributes: new { @class = "btn btn-outline-info bi bi-pencil-fill" }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID_Case }, htmlAttributes: new { @class = "btn btn-outline-warning" }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID_Case }, htmlAttributes: new { @class = "btn btn-outline-danger" })
+            <a href="@Url.Action("Edit", new { id = item.ID_Case })" class="btn btn-info" title="Edit">
+                <i class="bi bi-pencil-fill"></i>
+            </a>
+
+            <a href="@Url.Action("Details", new { id = item.ID_Case })" class="btn btn-warning" title="Details">
+                <i class="bi bi-eye-fill"></i>
+            </a>
+
+            <a href="@Url.Action("Delete", new { id = item.ID_Case })" class="btn btn-danger" title="Delete">
+                <i class="bi bi-trash-fill"></i>
+            </a>
         </td>
     </tr>
 }
