@@ -15,7 +15,7 @@ namespace TEMIS.Controllers
     public class AbogadosController : Controller
     {
         private TEMISContext db = new TEMISContext();
-
+        
         // GET: Abogados
         public ActionResult Index(string sortOrder, string filtroActual, string cadenaBuscar, int? pagina)
         {
@@ -113,13 +113,20 @@ namespace TEMIS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_Abogados,NombreAbogado,ApellidosAbogado,DUIAbogado,EspecialidadAbogado,TelefonoAbogado,EmailAbogado,CSJ")] Abogados abogados)
+        public ActionResult Create(Abogados abogados)
         {
             if (ModelState.IsValid)
             {
-                db.Abogados.Add(abogados);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    var mantenimientoAbogados = new MantenimientoAbogados();
+                    mantenimientoAbogados.AgregarAbogado(abogados);
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "No se pudo guardar los cambios. El registro fue modificado por otro usuario." + ex.Message);
+                }
             }
 
             return View(abogados);

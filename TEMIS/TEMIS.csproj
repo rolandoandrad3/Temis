@@ -160,6 +160,7 @@
     <Compile Include="Models\Abogados.cs" />
     <Compile Include="Models\Casos.cs" />
     <Compile Include="Models\Clientes.cs" />
+    <Compile Include="Models\MantenimientoAbogados.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
