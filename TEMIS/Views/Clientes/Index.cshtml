@@ -1,6 +1,8 @@
 ﻿@model PagedList.IPagedList<TEMIS.Models.Clientes>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
 @{
     ViewBag.Title = "Clientes";
@@ -10,11 +12,9 @@
 <h2>Clientes</h2>
 
 <p>
-    @Html.ActionLink("Agregar nuevo Cliente", "Create")
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
+    <a href="@Url.Action("Create")" class="btn btn-primary">Agregar nuevo Cliente</a>
 </p>
+
 @using (Html.BeginForm())
 {
     <p> Buscar por nombre, apellido o DUI: @Html.TextBox("cadenaBuscar", ViewBag.FiltroActual as string)</p>

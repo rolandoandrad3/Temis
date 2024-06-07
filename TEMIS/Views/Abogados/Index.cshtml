@@ -2,7 +2,7 @@
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 
 
 @{
@@ -13,9 +13,9 @@
 <h2>Abogados</h2>
 
 <p>
-    @Html.ActionLink("Agregar nuevo Abogado", "Create")
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <a href="@Url.Action("Create")" class="btn btn-primary">Agregar nuevo Abogado</a>
 </p>
+
 @using (Html.BeginForm())
 {
     <p> Buscar por nombre, apellido DUI: @Html.TextBox("cadenaBuscar", ViewBag.FiltroActual as string)</p>

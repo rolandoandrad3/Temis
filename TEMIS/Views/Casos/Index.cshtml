@@ -1,56 +1,63 @@
-﻿@model IEnumerable<TEMIS.Models.Casos>
-
+﻿@model PagedList.IPagedList<TEMIS.Models.Casos>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<link href="~/Content/PagedList.css" rel="stylesheet" />
 <h2>Casos</h2>
 
 <p>
-    @Html.ActionLink("Agregar nuevo Caso", "Create")
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <a href="@Url.Action("Create")" class="btn btn-primary">Agregar nuevo Caso</a>
+
 </p>
 <table class="table table-responsive-md">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Caso_Nombre)
+            @Html.ActionLink("Nombre del Caso", "Index", new { sortOrder = ViewBag.CasoNombreSortParam, FiltroActual = ViewBag.FiltroActual })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Tipo_Facturacion)
+            @Html.ActionLink("Tipo de Facturación", "Index", new { sortOrder = ViewBag.TipoFacturacionSortParam, FiltroActual = ViewBag.FiltroActual })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PrecioCaso)
+            @Html.ActionLink("Precio del Caso", "Index", new { sortOrder = ViewBag.PrecioCasoSortParam, FiltroActual = ViewBag.FiltroActual })
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Caso_Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tipo_Facturacion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PrecioCaso)
-        </td>
-        <td>
-            <a href="@Url.Action("Edit", new { id = item.ID_Case })" class="btn btn-info" title="Edit">
-                <i class="bi bi-pencil-fill"></i>
-            </a>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Caso_Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tipo_Facturacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrecioCaso)
+            </td>
+            <td>
+                <a href="@Url.Action("Edit", new { id = item.ID_Case })" class="btn btn-info" title="Edit">
+                    <i class="bi bi-pencil-fill"></i>
+                </a>
 
-            <a href="@Url.Action("Details", new { id = item.ID_Case })" class="btn btn-warning" title="Details">
-                <i class="bi bi-eye-fill"></i>
-            </a>
+                <a href="@Url.Action("Details", new { id = item.ID_Case })" class="btn btn-warning" title="Details">
+                    <i class="bi bi-eye-fill"></i>
+                </a>
 
-            <a href="@Url.Action("Delete", new { id = item.ID_Case })" class="btn btn-danger" title="Delete">
-                <i class="bi bi-trash-fill"></i>
-            </a>
-        </td>
-    </tr>
-}
+                <a href="@Url.Action("Delete", new { id = item.ID_Case })" class="btn btn-danger" title="Delete">
+                    <i class="bi bi-trash-fill"></i>
+                </a>
+            </td>
+        </tr>
+    }
 
 </table>
+<br />
+
+Pagina @(Model.PageCount < Model.PageNumber ? 0: Model.PageNumber) de @Model.PageCount
+<!--agregamos botones de indexamiento-->
+@Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina, sortOrder = ViewBag.OrdenamientoActual, FiltroActual = ViewBag.FiltroActual }))
