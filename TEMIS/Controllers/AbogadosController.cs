@@ -149,9 +149,18 @@ namespace TEMIS.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(abogados).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    db.Entry(abogados).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    // Manejar la excepción, registrarla, o mostrar un mensaje de error al usuario
+                    ModelState.AddModelError("", "Error al guardar los cambios: " + ex.Message);
+                    return View(abogados);
+                }
             }
             return View(abogados);
         }

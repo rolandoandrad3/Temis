@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -11,8 +12,7 @@ namespace TEMIS.Models
         // definir propiedades -> atributos de la tabla "Abogados"
         [Key]
         [Display(Name = "Código Abogado")]
-        [Required(ErrorMessage = "El código es obligatorio")]
-        [StringLength(6, MinimumLength = 6, ErrorMessage = "El código debe tener 6 caracteres")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string ID_Abogados { get; set; }
 
         [Display(Name = "Nombre del Abogado")]
