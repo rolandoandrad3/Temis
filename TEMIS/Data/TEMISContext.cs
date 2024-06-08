@@ -24,5 +24,6 @@ namespace TEMIS.Data
         public System.Data.Entity.DbSet<TEMIS.Models.Clientes> Clientes { get; set; }
 
         public System.Data.Entity.DbSet<TEMIS.Models.Casos> Casos { get; set; }
+        public System.Data.Entity.DbSet<TEMIS.Models.Usuario> Usuario { get; set; }
     }
 }

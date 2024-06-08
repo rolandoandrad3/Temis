@@ -19,12 +19,23 @@
                 <ul class="navbar-nav flex-grow-1">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Abogados", "Index", "Abogados", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Clientes", "Index", "Clientes", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Casos", "Index", "Casos", new { area = "" }, new { @class = "nav-link" })</li>
+                    @if (Session["start"] == "ok")
+                    {
+                        <li>@Html.ActionLink("Clientes", "Index", "Clientes", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Casos", "Index", "Casos", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
                     <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                 </ul>
             </div>
+            @if (Session["start"] != "ok")
+            {
+                <a href="@Url.Action("Index", "Login")" class="nav-link text-white">Iniciar sesión</a>
+            }
+            else
+            {
+                <a href="@Url.Action("Logout", "Login")" class="nav-link text-white">Cerrar sesión</a>
+            }
         </div>
     </nav>
     <div class="container body-content">

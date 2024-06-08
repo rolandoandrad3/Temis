@@ -8,8 +8,13 @@ namespace TEMIS.Controllers
 {
     public class HomeController : Controller
     {
+        
         public ActionResult Index()
         {
+            /*if ("ok" != Session["start"])
+            {
+                return RedirectToAction("Index", "Login");
+            }*/
             return View();
         }
 

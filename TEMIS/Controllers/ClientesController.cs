@@ -19,6 +19,10 @@ namespace TEMIS.Controllers
         // GET: Clientes
         public ActionResult Index(string sortOrder, string filtroActual, string cadenaBuscar, int? pagina)
         {
+            if ("ok" != Session["start"])
+            {
+                return RedirectToAction("Index", "Login");
+            }
             // parámetro de ordenamiento en el campo "Apellidos"
             // y lo enviamos a la vista
             ViewBag.ApellidoSortParam = String.IsNullOrEmpty(sortOrder) ? "apellido_desc" : "";

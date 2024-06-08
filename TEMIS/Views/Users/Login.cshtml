@@ -1,0 +1,49 @@
+﻿@model TEMIS.Models.Users
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5 table-responsive">
+            <!-- Reducimos el tamaño del card a col-md-4 -->
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h2 class="card-title text-center">Login</h2>
+                </div>
+                <div class="card-body text-center">
+                    <!-- Centramos el contenido del card -->
+                    @using (Html.BeginForm("Login", "Users", FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
+                    {
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1"><id class="bi bi-person"></id></span>
+                            @Html.TextBoxFor(model => model.NombreUsuario, new { @class = "form-control", placeholder = "Usuario", required = "required" })
+                            <div class="invalid-feedback">Por favor, ingresa tu nombre de usuario (CSJ).</div>
+                        </div>
+                        
+                        <div class="form-group input-group">
+                            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                            @Html.PasswordFor(model => model.Contraseña, new { @class = "form-control", placeholder = "Contraseña", required = "required" })
+                            <div class="invalid-feedback">Por favor, ingresa tu contraseña.</div>
+                        </div>
+                        <br />
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-dark">Login</button>
+                            <a href="@Url.Action("Index")" class="btn btn-secondary">Ir a la página principal</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

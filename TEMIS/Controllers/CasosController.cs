@@ -10,40 +10,48 @@ using System.Web;
 using System.Web.Mvc;
 using TEMIS.Data;
 using TEMIS.Models;
+using System.IO;
+using System.Threading.Tasks;
+
 
 
 namespace TEMIS.Controllers
 {
     public class CasosController : Controller
     {
+        private readonly string _uploadFolderPath;
+
+        public CasosController()
+        {
+            // Configurar la ruta de la carpeta de subidas
+            _uploadFolderPath = @"C:\Users\Rolan\Downloads\TEMIS\Documentos";
+            if (!Directory.Exists(_uploadFolderPath))
+            {
+                Directory.CreateDirectory(_uploadFolderPath);
+            }
+        }
+
         private TEMISContext db = new TEMISContext();
 
         // GET: Casos
         public ActionResult Index(string sortOrder, string filtroActual, string cadenaBuscar, int? pagina)
         {
-            // parámetro de ordenamiento en el campo "Apellidos"
-            // y lo enviamos a la vista
+            if ("ok" != Session["start"])
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             ViewBag.CasoNombreSortParam = String.IsNullOrEmpty(sortOrder) ? "apellido_desc" : "";
-
-            //Enviar parametro "sortOrder" a la vista 
             ViewBag.OrdenamiendoActual = sortOrder;
-
-            // parámetro de ordenamiento en el campo "facturacion"
-            // y lo enviamos a la vista
             ViewBag.TipoFacturacionSortParam = sortOrder == "fact_asc" ? "fact_desc" : "fact_asc";
-            // variable para el listado de todos los abogados
-            // usando LINQ
+
             var casos = from s in db.Casos select s;
 
-
-            //Definir la busqueda
             if (!string.IsNullOrEmpty(cadenaBuscar))
             {
-                //asignar al listado abogados el resultado de la consulta
                 casos = casos.Where(s => s.Caso_Nombre.Contains(cadenaBuscar) || s.Tipo_Facturacion.Contains(cadenaBuscar));
             }
 
-            //definir la paginacion
             if (cadenaBuscar != null)
             {
                 pagina = 1;
@@ -52,42 +60,33 @@ namespace TEMIS.Controllers
             {
                 cadenaBuscar = filtroActual;
             }
-            //definir otro parametro de busqueda para  enviarlo a la vista
+
             ViewBag.FiltroActual = cadenaBuscar;
 
             switch (sortOrder)
             {
-                // ordenamiento descendente por "Nombre en el caso"
                 case "apellido_desc":
                     casos = casos.OrderByDescending(s => s.Caso_Nombre);
                     break;
-
-                // ordenamiento descendente por "Tipo de Facturacion"
                 case "dui_desc":
                     casos = casos.OrderByDescending(s => s.Tipo_Facturacion);
                     break;
-
-                // ordenamiento ascendente por "Precio"
                 case "dui_asc":
                     casos = casos.OrderBy(s => s.PrecioCaso);
                     break;
-
-                // ordenamiento ascendente por "Apellidos"
                 default:
                     casos = casos.OrderBy(s => s.Caso_Nombre);
                     break;
             }
-            //definir el tamaño de la pagina y la cantidad de paginas
+
             int PageSize = 5;
             int PageNumber = (pagina ?? 1);
 
-            //return View(db.Abogados.ToList());
-            //return View(abogados.ToList()); Ya no se puede usar este return
             return View(casos.ToPagedList(PageNumber, PageSize));
         }
 
-    // GET: Casos/Details/5
-    public ActionResult Details(string id)
+        // GET: Casos/Details/5
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
@@ -100,6 +99,45 @@ namespace TEMIS.Controllers
             }
             return View(casos);
         }
+
+        // Método para manejar la subida de archivos
+        [HttpPost]
+        public async Task<ActionResult> Upload(HttpPostedFileBase file, string caseId)
+        {
+            if (file != null && file.ContentLength > 0)
+            {
+                string caseFolder = Path.Combine(_uploadFolderPath, caseId.ToString());
+                string filePath = Path.Combine(caseFolder, Path.GetFileName(file.FileName));
+
+                if (!Directory.Exists(caseFolder))
+                {
+                    Directory.CreateDirectory(caseFolder);
+                }
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.InputStream.CopyToAsync(stream);
+                }
+            }
+
+            // Obtener la lista de archivos para el caso actual y pasarla a la vista usando ViewBag
+            List<string> files = GetFilesForCase(caseId);
+            ViewBag.Files = files;
+
+            return RedirectToAction("Details", new { id = caseId });
+        }
+
+        private List<string> GetFilesForCase(string caseId)
+        {
+            var caseFolder = Path.Combine(_uploadFolderPath, caseId.ToString());
+            if (Directory.Exists(caseFolder))
+            {
+                return Directory.GetFiles(caseFolder).Select(Path.GetFileName).ToList();
+            }
+
+            return new List<string>();
+        }
+
 
         // GET: Casos/Create
         public ActionResult Create()
@@ -192,5 +230,9 @@ namespace TEMIS.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+
+
     }
 }

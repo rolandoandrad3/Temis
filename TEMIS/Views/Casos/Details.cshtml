@@ -14,7 +14,6 @@
         <dt>
             @Html.DisplayNameFor(model => model.Caso_Nombre)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Caso_Nombre)
         </dd>
@@ -22,7 +21,6 @@
         <dt>
             @Html.DisplayNameFor(model => model.Tipo_Facturacion)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Tipo_Facturacion)
         </dd>
@@ -30,13 +28,35 @@
         <dt>
             @Html.DisplayNameFor(model => model.PrecioCaso)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.PrecioCaso)
         </dd>
-
     </dl>
 </div>
+
+<div class="mt-4">
+    <h4>Subir Documentos</h4>
+    <form action="@Url.Action("Upload", "Casos")" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="caseId" value="@Model.ID_Case" />
+        <div class="form-group">
+            <label for="file">Seleccionar archivo</label>
+            <input type="file" class="form-control" id="file" name="file" />
+        </div>
+        <button type="submit" class="btn btn-primary">Subir</button>
+    </form>
+
+    <h4 class="mt-4">Documentos Subidos</h4>
+    <ul>
+        @if (ViewBag.Files != null)
+        {
+            foreach (var file in ViewBag.Files as List<string>)
+            {
+                <li>@file</li>
+            }
+        }
+    </ul>
+</div>
+
 <p class="text-md-center mt-3">
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID_Case }, new { @class = "btn btn-warning" }) |
     <button type="button" class="btn btn-light">@Html.ActionLink("Back to List", "Index")</button>
